@@ -3,6 +3,7 @@ package com.coderscampus;
 public class ModelSales {
 	private String monthYear;
 	private String sales;
+	
 	public String getMonthYear() {
 		return monthYear;
 	}
