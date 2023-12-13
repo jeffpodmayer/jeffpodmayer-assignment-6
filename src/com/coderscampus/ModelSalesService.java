@@ -39,7 +39,7 @@ public class ModelSalesService {
 				.orElseThrow(() -> new RuntimeException("Not found"));
 	}
 
-	public void printYearlySalesReport(String modelName, String fileName) throws IOException {
+	public void printYearlySalesReports(String modelName, String fileName) throws IOException {
 		System.out.println(modelName + " Yearly Sales Report");
 		System.out.println("---------------------");
 
