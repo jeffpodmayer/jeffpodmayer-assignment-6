@@ -11,7 +11,7 @@ import java.util.Optional;
 public class ModelSalesService {
 	FileService fileService = new FileService();
 	ModelSalesService modelSalesService = new ModelSalesService();
-	
+
 	public Long totalNumberOfSalesPerYear(List<ModelSales> modelSalesList, String year) {
 		IntSummaryStatistics totalSales = modelSalesList.stream()
 				.filter(modelSales -> modelSales.getMonthYear().contains(year))
@@ -27,7 +27,7 @@ public class ModelSalesService {
 
 		return bestSalesNum
 				.map(modelSales -> YearMonth.parse(modelSales.getMonthYear(), DateTimeFormatter.ofPattern("MMM-yy")))
-				.orElseThrow(() -> new RuntimeException("No best sales found"));
+				.orElseThrow(() -> new RuntimeException("Not found"));
 	}
 
 	public YearMonth findWorstMonthYearForSales(List<ModelSales> modelSalesList) {
@@ -36,7 +36,7 @@ public class ModelSalesService {
 
 		return worstSalesNum
 				.map(modelSales -> YearMonth.parse(modelSales.getMonthYear(), DateTimeFormatter.ofPattern("MMM-yy")))
-				.orElseThrow(() -> new RuntimeException("No best sales found"));
+				.orElseThrow(() -> new RuntimeException("Not found"));
 	}
 
 	public void printYearlySalesReport(String modelName, String fileName) throws IOException {
