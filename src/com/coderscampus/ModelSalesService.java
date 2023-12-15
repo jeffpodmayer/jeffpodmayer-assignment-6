@@ -10,9 +10,9 @@ import java.util.Optional;
 
 public class ModelSalesService {
 	FileService fileService = new FileService();
-	ModelSalesService modelSalesService = new ModelSalesService();
+	
 
-	public Long totalNumberOfSalesPerYear(List<ModelSales> modelSalesList, String year) {
+	public static Long totalNumberOfSalesPerYear(List<ModelSales> modelSalesList, String year) {
 		IntSummaryStatistics totalSales = modelSalesList.stream()
 				.filter(modelSales -> modelSales.getMonthYear().contains(year))
 				.mapToInt(modelSales -> Integer.parseInt((modelSales).getSales())).summaryStatistics();
@@ -21,7 +21,7 @@ public class ModelSalesService {
 		return yearSales;
 	}
 
-	public YearMonth findBestMonthYearForSales(List<ModelSales> modelSalesList) {
+	public static YearMonth findBestMonthYearForSales(List<ModelSales> modelSalesList) {
 		Optional<ModelSales> bestSalesNum = modelSalesList.stream()
 				.max(Comparator.comparingInt(modelSales -> Integer.parseInt(modelSales.getSales())));
 
@@ -30,7 +30,7 @@ public class ModelSalesService {
 				.orElseThrow(() -> new RuntimeException("Not found"));
 	}
 
-	public YearMonth findWorstMonthYearForSales(List<ModelSales> modelSalesList) {
+	public static YearMonth findWorstMonthYearForSales(List<ModelSales> modelSalesList) {
 		Optional<ModelSales> worstSalesNum = modelSalesList.stream()
 				.min(Comparator.comparingInt(modelSales -> Integer.parseInt(modelSales.getSales())));
 
@@ -47,7 +47,7 @@ public class ModelSalesService {
 
 		for (int i = 16; i <= 19; i++) {
 			String year = String.valueOf(i);
-			Long totalSales = modelSalesService.totalNumberOfSalesPerYear(modelSales, year);
+			Long totalSales = ModelSalesService.totalNumberOfSalesPerYear(modelSales, year);
 
 			if (totalSales > 0) {
 				System.out.println("20" + year + " -> " + totalSales);
@@ -56,8 +56,8 @@ public class ModelSalesService {
 
 		System.out.println("");
 
-		YearMonth bestMonth = modelSalesService.findBestMonthYearForSales(modelSales);
-		YearMonth worstMonth = modelSalesService.findWorstMonthYearForSales(modelSales);
+		YearMonth bestMonth = ModelSalesService.findBestMonthYearForSales(modelSales);
+		YearMonth worstMonth = ModelSalesService.findWorstMonthYearForSales(modelSales);
 
 		System.out.println("The BEST month for " + modelName + " was: " + bestMonth);
 		System.out.println("The WORST month for " + modelName + " was: " + worstMonth);
